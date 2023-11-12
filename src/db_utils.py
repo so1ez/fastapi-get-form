@@ -1,15 +1,20 @@
-"""database query functions"""
+"""Database queries functions"""
 
 from itertools import combinations
 import json
+from typing import List
 
 from bson import json_util
 
 from database import collection
+from models import TemplateTypes
 
 
-def query_get_form(query: dict):
-    """execute query to database"""
+def query_get_form(query: dict) -> dict:
+    """
+        Queries the db to find the name of the form template.
+        Returns the result if found, None if not.
+    """
 
     combination_len = len(query)
 
@@ -24,11 +29,13 @@ def query_get_form(query: dict):
             for tmp_result in tmp_results:
                 tmp_result.pop("_id")
                 if tmp_result and len(tmp_result) - 1 <= combination_len:
-                    result = {"name": tmp_result["name"]}
+                    result = {TemplateTypes.NAME: tmp_result[TemplateTypes.NAME]}
 
         combination_len -= 1
 
     return result
 
-def get_db_data():
-    return json.loads(json_util.dumps(collection.find({})))
+
+def get_db_data() -> List[dict]:
+    """Query to get all documents from working collection. Returns list if dicts"""
+    return json.loads(json_util.dumps(collection.find()))

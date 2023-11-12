@@ -1,3 +1,5 @@
+"""Add src directory to sys.path"""
+
 import os
 import sys
 

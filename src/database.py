@@ -1,39 +1,23 @@
-"""db connection fil. If main - configure db with test data"""
+"""Database creation and connection file. If main - configure db with test data"""
+
+import json
 
 import pymongo
 
-client = pymongo.MongoClient("mongodb://localhost:27017/")
-db = client["mydatabase"]
-collection = db["testcollection"]
+from settings import SETTINGS
+
+client = pymongo.MongoClient(SETTINGS.DB_CONNECTION)
+db = client[SETTINGS.DB_NAME]
+collection = db[SETTINGS.DB_COLLECTION_NAME]
+
 
 if __name__ == "__main__":
     collection.delete_many({})
-    test_data = [{
-        "name": "login template",
-        "username": "text",
-        "password": "text"
-    },
-    {
-        "name": "register template",
-        "username": "text",
-        "email": "email",
-        "phone": "phone"
-    },
-    {
-        "name": "feedback template",
-        "email": "email",
-        "feedback": "text"
-    },
-    {
-        "name": "logs template",
-        "info": "text",
-        "created_date": "date"
-    },
-    {
-        "name": "simple date template",
-        "created_date": "date"
-    }]
+    with open('db_test_data.json', encoding='utf-8') as file:
+        test_data = json.load(file)
+        collection.insert_many(test_data)
 
-    collection.insert_many(test_data)
     for doc in collection.find():
-        print(f"document = {doc}")
+        print(f"document: {doc}")
+
+    print("--- Конец вывода данных ---")

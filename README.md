@@ -1,44 +1,47 @@
 # fastapi-get-form
-Web-приложение для определения заполненных форм
+Web application for identifying form template
 
 ## Usage
-### Скачиваем проект
-### Поднимаем контейнер с mongodb
+### Clone the project
+```
+git clone https://github.com/so1ez/fastapi-get-form.git
+```
+### Start a mongo Docker container
 ```
 docker run -d -p 27017:27017 --name mongo_container mongo
 ```
-Если образ mongodb не установлен локально, то он установится автоматически
-### Настраиваем приложение
-Находясь в директории проекта:
-Создаем виртуальное окружение
+If the mongodb image is not installed locally, it will be installed automatically
+### Configure an app
+in the project directory:
+Create a virtual environment
 ```
 python3 -m venv venv
 ```
-Активируем виртуальное окружение (Linux)
+Activate the virtual enviroment (Linux)
 ```
 source venv/bin/activate
 ```
-Устанавливаем зависимости
+Install dependencies
 ```
 python3 -m pip install -r requirements.txt
 ```
-### Заполняем базу mongodb тестовыми данными
+### Filling the mongodb database with test data
 ```
 python3 src/database.py
 ```
-В консоли видим тестовые данные
-### Выполняем тестовые запросы
+
+We can see test data in the console
+### Running the script with test requests
 ```
 python3 -m pytest
 ```
-Видим результаты тестов
-### Запускаем веб-приложение
-Выполняем команду
+In the console we can see the results of test requests
+### Run the web application
+Execute the command
 ```
 uvicorn src.main:app --reload
 ```
-Переходим на [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) и выполняем нужные запросы.
-### Эндпоинты
-1. get "/" — index, возвращает строку "Hello world!"
-2. post "/get_form" — основной эндпоинт определения заполненной формы, возвращает имя максимально подходящей формы, если такой нет, возвращает список типизированных полей
-3. get "/db" — получение всех документов коллекции с тестовыми данными mongodb
+Go to http://127.0.0.1:8000/docs and execute the necessary requests.
+### Endpoints
+1. post "/get_form" — main endpoint for defining a form template, returns the name of the most suitable form, if there is none, returns a list of typed fields
+2. get "/db" — getting all documents of a working collection with mongodb test data

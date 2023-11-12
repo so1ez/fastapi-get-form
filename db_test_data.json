@@ -1,0 +1,25 @@
+[{
+    "name": "login template",
+    "username": "text",
+    "password": "text"
+},
+{
+    "name": "register template",
+    "username": "text",
+    "email": "email",
+    "phone": "phone"
+},
+{
+    "name": "feedback template",
+    "email": "email",
+    "feedback": "text"
+},
+{
+    "name": "logs template",
+    "info": "text",
+    "created_date": "date"
+},
+{
+    "name": "simple date template",
+    "created_date": "date"
+}]

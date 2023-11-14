@@ -1,6 +1,8 @@
 # fastapi-get-form
 Web application for identifying form template
 
+## In branch "v1.2/boytsov/release" there is a version of the application running 2 containers mongodb and app using docker-compose and dockerfile
+
 ## Usage
 ### Clone the project
 ```

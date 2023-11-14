@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-RUN apt update && apt -y install python3 pip telnet
+RUN apt update && apt -y install python3 pip
 
 WORKDIR /code
 

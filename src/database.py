@@ -6,7 +6,7 @@ import pymongo
 
 from settings import SETTINGS
 
-client = pymongo.MongoClient(SETTINGS.DB_CONNECTION)
+client = pymongo.MongoClient(SETTINGS.DB_HOST_CONNECTION)
 db = client[SETTINGS.DB_NAME]
 collection = db[SETTINGS.DB_COLLECTION_NAME]
 

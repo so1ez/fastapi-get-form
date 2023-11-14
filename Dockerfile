@@ -4,12 +4,14 @@ RUN apt update && apt -y install python3 pip
 
 WORKDIR /code
 
-COPY ./start.sh /code/start.sh
-
-COPY ./requirements.txt /code/requirements.txt
-RUN python3 -m pip install --no-cache-dir --upgrade -r /code/requirements.txt
+COPY requirements.txt .
+RUN python3 -m pip install --no-cache-dir --upgrade -r requirements.txt
 
 COPY ./src /code/src
+COPY ./db_test_data.json /code/db_test_data.json
+COPY ./.env /code/.env
+COPY ./start.sh /code/start.sh
+
 
 RUN ["chmod", "+x", "start.sh"]
 

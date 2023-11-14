@@ -93,3 +93,24 @@ def test_get_non_existent_form():
         "phone": RequestTypes.PHONE,
         "username": RequestTypes.TEXT
     }
+
+
+def test_request_with_int_value():
+    """Request with int value instead of string"""
+
+    response = client.post("/get_form", json={
+        "username": 1234
+    })
+    assert response.status_code == 422
+
+
+def test_request_with_json_value():
+    """Request with json value instead of string"""
+
+    response = client.post("/get_form", json={
+        "username": {
+            "first_name": "Vladimir",
+            "second_name": "Boytsov"
+        }
+    })
+    assert response.status_code == 422

@@ -2,7 +2,7 @@
 
 from itertools import combinations
 import json
-from typing import List
+from typing import List, Dict
 
 from bson import json_util
 
@@ -10,7 +10,7 @@ from database import collection
 from models import TemplateTypes
 
 
-def query_get_form(query: dict) -> dict:
+def query_get_form(query: Dict[str, str]) -> Dict[str, str] | None:
     """
         Queries the db to find the name of the form template.
         Returns the result if found, None if not.
@@ -36,6 +36,6 @@ def query_get_form(query: dict) -> dict:
     return result
 
 
-def get_db_data() -> List[dict]:
+def get_db_data() -> List[Dict[str, str]]:
     """Query to get all documents from working collection. Returns list if dicts"""
     return json.loads(json_util.dumps(collection.find()))

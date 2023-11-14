@@ -2,7 +2,7 @@
 
 __author__      = "Boytsov V.M."
 
-from typing import List
+from typing import List, Dict
 
 from fastapi import FastAPI, Body
 
@@ -16,14 +16,14 @@ app = FastAPI(
 
 
 @app.post("/get_form")
-def get_form(form_query: dict = Body(...)) -> dict:
+def get_form(form_query: Dict[str, str] = Body(...)) -> Dict[str, str]:
     """Returns the name of the found template or typed fields if the template is not found"""
 
     return get_form_template(form_query)
 
 
 @app.get("/db")
-def get_db() -> List[dict]:
+def get_db() -> List[Dict[str, str]]:
     """Returns all documents in the working collection of a database (list of dicts)"""
 
     return get_db_data()

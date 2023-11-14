@@ -1,6 +1,7 @@
 """Data process functions"""
 
 import re
+from typing import Dict
 
 from db_utils import query_get_form
 from models import RequestTypes
@@ -18,16 +19,16 @@ class RegEx:
         r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$"
 
 
-def get_form_template(raw_data: dict) -> dict:
+def get_form_template(raw_data: Dict[str, str]) -> Dict[str, str]:
     """Process recieved data (dict). Returns name of found template or None if not found"""
 
     typed_data = _typing_dict(raw_data)
     template_name = query_get_form(typed_data)
 
-    return template_name if template_name is not None else typed_data
+    return template_name or typed_data
 
 
-def _typing_dict(data: dict) -> dict:
+def _typing_dict(data: Dict[str, str]) -> Dict[str, str]:
     """Types the values of the received data (dict). Returns updated dict"""
 
     for key, value in data.items():

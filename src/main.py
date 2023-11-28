@@ -30,7 +30,7 @@ def get_form(form_query: str = Body(...)) -> Dict[str, str]:
 
 
 @app.get("/db")
-def get_db() -> List[Dict[str, str]]:
+def get_db() -> List[dict]:
     """Returns all documents in the working collection of a database (list of dicts)"""
 
     return get_db_data()

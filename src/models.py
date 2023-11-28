@@ -8,6 +8,7 @@ class RequestTypes:
     EMAIL: str = "email"
     TEXT: str = "text"
 
+
 class TemplateTypes:
     """Template name field"""
 

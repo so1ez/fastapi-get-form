@@ -1,9 +1,12 @@
 """Data process functions"""
 
 import re
+from typing import Dict
+from operator import methodcaller
 
 from db_utils import query_get_form
 from models import RequestTypes
+from exceptions import InvalidDataFormatException
 
 class RegEx:
     """Class with regex for typing strings"""
@@ -18,16 +21,39 @@ class RegEx:
         r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$"
 
 
-def get_form_template(raw_data: dict) -> dict:
-    """Process recieved data (dict). Returns name of found template or None if not found"""
+def get_form_template(raw_data: str) -> Dict[str, str]:
+    """
+        Process recieved data (str).
+        Returns {} if recieved data is empty.
+        Returns name of found template or None if not found
+    """
 
-    typed_data = _typing_dict(raw_data)
+    if not raw_data:
+        return {}
+
+    dict_data = _str_to_dict(raw_data)
+    typed_data = _typing_dict(dict_data)
     template_name = query_get_form(typed_data)
 
-    return template_name if template_name is not None else typed_data
+    return template_name or typed_data
 
 
-def _typing_dict(data: dict) -> dict:
+def _str_to_dict(raw_str: str) -> Dict[str, str]:
+    """
+        Converts a string to a dictionary
+        "f_name1=value1&f_name2=value2" to {f_name1: value1, f_name2: value2}
+    """
+
+    pairs_list = raw_str.split("&")
+    try:
+        dict_data = dict(map(methodcaller("split", "="), pairs_list))
+    except ValueError as exc:
+        raise InvalidDataFormatException from exc
+
+    return dict_data
+
+
+def _typing_dict(data: Dict[str, str]) -> Dict[str, str]:
     """Types the values of the received data (dict). Returns updated dict"""
 
     for key, value in data.items():

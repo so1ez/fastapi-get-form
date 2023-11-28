@@ -2,8 +2,8 @@
 
 from fastapi.testclient import TestClient
 
-from main import app
-from models import TemplateTypes, RequestTypes
+from src.main import app
+from src.models import TemplateTypes, RequestTypes
 
 client = TestClient(app)
 

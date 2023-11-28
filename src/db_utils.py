@@ -36,6 +36,7 @@ def query_get_form(query: Dict[str, str]) -> Dict[str, str] | None:
     return result
 
 
-def get_db_data() -> List[Dict[str, str]]:
+def get_db_data() -> List[dict]:
     """Query to get all documents from working collection. Returns list if dicts"""
+
     return json.loads(json_util.dumps(collection.find()))

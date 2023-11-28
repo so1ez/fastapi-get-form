@@ -30,7 +30,6 @@ def get_form_template(raw_data: str) -> Dict[str, str]:
 
     if not raw_data:
         return {}
-
     dict_data = _str_to_dict(raw_data)
     typed_data = _typing_dict(dict_data)
     template_name = query_get_form(typed_data)
@@ -65,5 +64,4 @@ def _typing_dict(data: Dict[str, str]) -> Dict[str, str]:
             data[key] = RequestTypes.EMAIL
         else:
             data[key] = RequestTypes.TEXT
-
     return data

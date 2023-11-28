@@ -19,5 +19,4 @@ if __name__ == "__main__":
 
     for doc in collection.find():
         print(f"document: {doc}")
-
     print("--- Конец вывода данных ---")
